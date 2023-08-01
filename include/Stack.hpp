@@ -1,6 +1,7 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 #include "Node.hpp"
+#include "BTS.hpp"
 #include <iostream>
 using namespace std;
 
@@ -10,6 +11,7 @@ class Stack{
         int ChechTopNode;
         int NextNumber;
         Node*TopNode;
+        Bts*bts;
         
 
     public:
@@ -23,6 +25,7 @@ class Stack{
          Node* GetNode(Node*node);
          Node* GetPrevNode(Node*node);
          void SetNextNumber();
+         void PopAndBTS();
  
 };
 

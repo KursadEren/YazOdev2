@@ -41,7 +41,7 @@ Reading:: ~Reading(){
         }
         i++;
         stk->WriteStack();
-        s=0;
+        
         
        
     }

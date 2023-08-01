@@ -3,7 +3,7 @@
  Stack::Stack(){
     this->NextNumber=1;
     this->TopNode=nullptr;
-    
+    this->root = nullptr;
     
  }
  Stack:: ~Stack(){
@@ -46,6 +46,7 @@ void Stack::CreateStack(int value,int value2){
    if(TopNode ==nullptr)
    {
       TopNode = new_Node;
+      new_Node->NextCount = NextNumber;
    }
       Node* temp = GetNode(TopNode);
       Node* prev = GetPrevNode(temp);
@@ -53,15 +54,18 @@ void Stack::CreateStack(int value,int value2){
          
          temp->Next  = new_Node ;
          NextNumber++;
+         new_Node->NextCount = NextNumber;
      }
      else  if( prev == nullptr && value2 != 0 ) // mantıksız bu sefer hiçbir zaman next ine bir şey oluşturmayacak 
      {
        new_Node->Down =TopNode;
        TopNode = new_Node;
+       new_Node->NextCount = NextNumber;
      }
      else if (prev !=nullptr){
          prev->Next =new_Node;
          new_Node->Down = temp;
+         new_Node->NextCount = NextNumber;
      }
  
    
@@ -121,4 +125,41 @@ Node* Stack::GetPrevNode(Node*node)
 void Stack::SetNextNumber(){
 
      this->NextNumber = 1;
+}
+void Stack::PopAndBTS()
+{
+   Node *temp = TopNode;
+   Node *delNode;
+   for(int i =0 ; i<NextNumber;i++){
+
+         while(temp->Down != nullptr){
+
+           
+            if(TopNode->Down !=nullptr){
+                bts->insert(TopNode->data);
+               temp = TopNode->Down;
+               delete TopNode;
+               TopNode = temp;
+            }
+            else if (TopNode->Down == nullptr){
+                bts->insert(TopNode->data);
+                temp = TopNode->Next;
+                delete TopNode;
+                TopNode = temp;
+
+                if(TopNode != nullptr ){
+                  bts->insertNext(TopNode->data);
+                  temp = TopNode->Down;
+                  if(TopNode->Next !=nullptr)
+                  temp->Next = TopNode->Next;
+                  delete TopNode;
+                  TopNode = temp;
+                }
+                
+            }
+            
+         }
+
+   }
+
 }
