@@ -1,18 +1,24 @@
 #ifndef BTS_HPP
 #define BTS_HPP
+#include <iostream>
+#include "BtsNode.hpp"
 
 using namespace std;
-
 class BTS{
-    BtsNode*root
+    
     private:
     
-    void SearchAndAdd(BtsNode *&subNode,const Object& newItem);
-     void GetNextNode(BtsNode*subNode,int value);
+    int NextCount;
+    void SearchAndAdd(BtsNode *&subNode,int const & newItem);
+     void GetNextNode(BtsNode*subNode);
     public:
-        void insert(const Object& newItem);
-        void insertNext(const Object& newItem);
-        BtsNode* BTS::GetNode(BtsNode*subNode);
+        BtsNode*root;
+        BTS();
+        ~BTS();
+        bool DeleteNode(BtsNode *&subNode);
+        void insert( int const & newItem);
+        void insertNext();
+        BtsNode* GetNode(BtsNode*subNode);
 };
 
 

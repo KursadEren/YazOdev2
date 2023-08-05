@@ -40,9 +40,8 @@ Reading:: ~Reading(){
          s++;
         }
         i++;
-        stk->WriteStack();
-        
-        
+        cout << "hey" << endl;
+        stk->PopAndBTS();   
        
     }
     

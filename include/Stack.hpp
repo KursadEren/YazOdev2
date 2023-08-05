@@ -11,7 +11,7 @@ class Stack{
         int ChechTopNode;
         int NextNumber;
         Node*TopNode;
-        Bts*bts;
+        BTS*root;
         
 
     public:

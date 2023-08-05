@@ -132,34 +132,29 @@ void Stack::PopAndBTS()
    Node *delNode;
    for(int i =0 ; i<NextNumber;i++){
 
-         while(temp->Down != nullptr){
+         while(temp != nullptr){
 
            
             if(TopNode->Down !=nullptr){
-                bts->insert(TopNode->data);
+              
+              root->insert(TopNode->data);
+                 
                temp = TopNode->Down;
                delete TopNode;
                TopNode = temp;
             }
             else if (TopNode->Down == nullptr){
-                bts->insert(TopNode->data);
+                cout << "Hey 2 "<<endl;
+               root->insert(TopNode->data);
                 temp = TopNode->Next;
                 delete TopNode;
                 TopNode = temp;
-
-                if(TopNode != nullptr ){
-                  bts->insertNext(TopNode->data);
-                  temp = TopNode->Down;
-                  if(TopNode->Next !=nullptr)
-                  temp->Next = TopNode->Next;
-                  delete TopNode;
-                  TopNode = temp;
-                }
-                
             }
             
+         }    
+         if(TopNode != nullptr){
+             cout << "Hey 3 "<<endl;
+           root->insertNext();
          }
-
    }
-
 }
