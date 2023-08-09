@@ -45,12 +45,13 @@ Reading:: ~Reading(){
         }
         i++;
         s=0;
-        
+       
         root = stk->PopAndBTS();
         
         
         root->SearchAndMaxHeight();   
         root->postorder();
+        
         
         
         root->NodeDelete();

@@ -79,11 +79,10 @@ int BTS::Height(BtsNode *&subNode){
       
     while (temp != nullptr) {
          
-        if (temp->height > maxHeight) {
-            maxHeight = temp->height;
+        if (temp->height > MaxTemp->height) {
+            MaxTemp = temp;
              
-        }
-        else
+        }else
         if(MaxTemp->height <= temp->height){
             
             if(MaxTemp->height < temp->height)
@@ -91,11 +90,16 @@ int BTS::Height(BtsNode *&subNode){
         
             if(MaxTemp->height == temp->height){
                
-              MaxTemp = (MaxTemp->Sum == 55) ? MaxTemp : ((temp->Sum == 55) ? temp : MaxTemp);
-              
+              if(MaxTemp->Sum > temp->Sum)
+              MaxTemp = MaxTemp;
+              else  if(MaxTemp->Sum < temp->Sum)
+              MaxTemp = temp;
+              else if(MaxTemp->Sum == temp->Sum)
+              MaxTemp = MaxTemp;
             }
            
         }
+        
        
         
         temp = temp->Next;
