@@ -8,8 +8,8 @@
  }
 
 Reading:: ~Reading(){
-        delete line; 
-        line = nullptr;
+         if(line !=nullptr)
+       delete line;
  }
 
  int Reading :: linecount() {
@@ -26,23 +26,36 @@ Reading:: ~Reading(){
  void Reading::readline(){
     string token;
     int i = 0;
-    Stack* stk = new Stack();
+    
+ 
     ifstream file(this->filename);
     string str;
     int s = 0;
-   
+  
     while (getline(file, token)) {
         istringstream ss(token);
+         Stack* stk = new Stack();
+         BTS* root = new BTS();    
+         
         while (getline(ss, str, ' ')) {
+          
            
-            
-        stk->CreateStack(stoi(str),s);
+          stk->CreateStack(stoi(str),s);
          s++;
         }
         i++;
-        cout << "hey" << endl;
-        stk->PopAndBTS();   
-       
+        s=0;
+        
+        root = stk->PopAndBTS();
+        
+        
+        root->SearchAndMaxHeight();   
+        root->postorder();
+        
+        
+        root->NodeDelete();
+        Sleep(10);
+      
     }
     
     file.close();

@@ -7,6 +7,24 @@
     
  }
  Stack:: ~Stack(){
+   
+    Node* temp;
+    for(int i = 0; i<NextNumber; i++ )
+    {
+      while (TopNode != nullptr) {
+        temp = TopNode;
+        TopNode->Down->Next = TopNode->Next;
+        TopNode = TopNode->Down;
+        delete temp;
+    }
+    temp = TopNode;
+    TopNode = TopNode->Next;
+    delete temp;
+    
+    
+
+    }
+    
 
     }
  void Stack::push(int data) {
@@ -15,87 +33,51 @@
     TopNode = new_node;
 }
 
-int Stack::pop() {
-    if (!TopNode) {
-        std::cerr << "Stack is empty!" << std::endl;
-        return -1;
+
+
+
+
+void Stack::CreateStack(int value, int value2) {
+    Node* new_Node = new Node(value);
+
+    if (TopNode == nullptr) {
+        TopNode = new_Node;
+        new_Node->NextCount = NextNumber;
+    } else {
+        Node* temp = GetNode(TopNode);
+        Node* prev = GetPrevNode(temp);
+        
+        if (value % 2 == 0 && temp->data < value) {
+            temp->Next = new_Node;
+            NextNumber++;
+            new_Node->NextCount = NextNumber;
+        } else if (prev == nullptr && value2 != 0) {
+            new_Node->Down = TopNode;
+            TopNode = new_Node;
+            new_Node->NextCount = NextNumber;
+        } else if (prev != nullptr) {
+            prev->Next = new_Node;
+            new_Node->Down = temp;
+            new_Node->NextCount = NextNumber;
+        }
     }
-
-    int popped_data = TopNode->data;
-    Node* temp = TopNode;
-    if(TopNode->Down != nullptr)
-    {
-    TopNode->Down->Next = TopNode->Next;
-    TopNode = TopNode->Down;
-    }
-    else{
-      TopNode = TopNode->Next;
-    }
-   
-    delete temp;
-
-    return popped_data;
-}   
-
-
-
-
-void Stack::CreateStack(int value,int value2){
-   Node* new_Node = new Node(value);
-   
-   if(TopNode ==nullptr)
-   {
-      TopNode = new_Node;
-      new_Node->NextCount = NextNumber;
-   }
-      Node* temp = GetNode(TopNode);
-      Node* prev = GetPrevNode(temp);
-    if(value % 2 ==0 && temp->data < value ) {
-         
-         temp->Next  = new_Node ;
-         NextNumber++;
-         new_Node->NextCount = NextNumber;
-     }
-     else  if( prev == nullptr && value2 != 0 ) // mantıksız bu sefer hiçbir zaman next ine bir şey oluşturmayacak 
-     {
-       new_Node->Down =TopNode;
-       TopNode = new_Node;
-       new_Node->NextCount = NextNumber;
-     }
-     else if (prev !=nullptr){
-         prev->Next =new_Node;
-         new_Node->Down = temp;
-         new_Node->NextCount = NextNumber;
-     }
- 
-   
-
-   
- 
-      //cout<< TopNode<< " " << new_Node->data << " " << new_Node << " " << new_Node->Next << " " << new_Node->Down << endl;
-     
-     
-  
 }
-void Stack:: WriteStack()
-{
-   Node* temp = TopNode;
-   Node*temp2 = TopNode;
-   
-    for(int i=0; i< NextNumber;i++)
-   {
-     
-      while(temp)
-      {
-          cout << temp->data<< " "  ;
-          temp = temp->Down;
-      }
-      cout << " -> "<<endl;
-      temp = temp2->Next;
-      temp2=temp;
-   }
 
-}   
+void Stack::WriteStack() {
+    Node* temp = TopNode;
+    Node* temp2 = TopNode;
+   
+    for (int i = 0; i < NextNumber; i++) {
+        while (temp) {
+            cout << temp->data << " ";
+            temp = temp->Down;
+        }
+        cout << " -> " << endl;
+        temp = temp2->Next;
+        temp2 = temp;
+    }
+}
+ 
 
 Node* Stack::GetNode(Node*node)
 {
@@ -126,35 +108,37 @@ void Stack::SetNextNumber(){
 
      this->NextNumber = 1;
 }
-void Stack::PopAndBTS()
+BTS* Stack::PopAndBTS()
 {
    Node *temp = TopNode;
-   Node *delNode;
+   
+   BTS* root = new BTS();
    for(int i =0 ; i<NextNumber;i++){
-
-         while(temp != nullptr){
-
-           
+         
+         while(TopNode != nullptr){
+            
             if(TopNode->Down !=nullptr){
-              
-              root->insert(TopNode->data);
-                 
-               temp = TopNode->Down;
-               delete TopNode;
-               TopNode = temp;
+               
+               root->insert(TopNode->data,TopNode->NextCount);
+               temp =  TopNode;
+               TopNode->Down->Next = TopNode->Next;
+               TopNode = TopNode->Down;
+               
+               delete temp;
+               
             }
             else if (TopNode->Down == nullptr){
-                cout << "Hey 2 "<<endl;
-               root->insert(TopNode->data);
-                temp = TopNode->Next;
-                delete TopNode;
-                TopNode = temp;
+               
+                root->insert(TopNode->data,TopNode->NextCount);
+                temp = TopNode;
+                TopNode = TopNode->Next;         
+                delete temp;
+                
             }
             
          }    
-         if(TopNode != nullptr){
-             cout << "Hey 3 "<<endl;
-           root->insertNext();
-         }
+         
    }
+   
+   return root;
 }

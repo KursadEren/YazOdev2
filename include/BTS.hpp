@@ -1,24 +1,33 @@
 #ifndef BTS_HPP
 #define BTS_HPP
 #include <iostream>
+
 #include "BtsNode.hpp"
 
 using namespace std;
 class BTS{
-    
+    BtsNode*root;
+    BtsNode*NewRoot;
     private:
-    
+   
     int NextCount;
-    void SearchAndAdd(BtsNode *&subNode,int const & newItem);
-     void GetNextNode(BtsNode*subNode);
+    void SearchAndAdd(BtsNode *&subNode,int const & newItem, int value);
+    void inorder(BtsNode *subNode);
+     BtsNode*  SearchAndMaxHeight(BtsNode*&subNode);
+      void postorderASCII(BtsNode *subNode);
+      bool DeleteNode(BtsNode *& subNode);
     public:
-        BtsNode*root;
+        
         BTS();
         ~BTS();
-        bool DeleteNode(BtsNode *&subNode);
-        void insert( int const & newItem);
-        void insertNext();
-        BtsNode* GetNode(BtsNode*subNode);
+        void postorder();
+        void inorder();
+        
+        void insert( int const & newItem, int value);
+        int Height(BtsNode *&subNode);
+        void SearchAndMaxHeight();
+        int NodeSum(BtsNode*subNode);
+        void NodeDelete();
 };
 
 

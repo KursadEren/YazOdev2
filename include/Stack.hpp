@@ -11,21 +11,21 @@ class Stack{
         int ChechTopNode;
         int NextNumber;
         Node*TopNode;
-        BTS*root;
         
 
     public:
+        BTS*root;     
         Stack();
        ~Stack();
         void push(int data);
-         int pop();
+         
          
         void CreateStack(int value,int value2);
         void WriteStack();
          Node* GetNode(Node*node);
          Node* GetPrevNode(Node*node);
          void SetNextNumber();
-         void PopAndBTS();
+         BTS* PopAndBTS();
  
 };
 
